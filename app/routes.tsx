@@ -1,10 +1,10 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import About from "./about.js";
-import aboutLoader from "./about.loader.js";
-import Home from "./home.js";
-import Layout from "./layout.js";
+import About from "./about.tsx";
+import aboutLoader from "./about.loader.tsx";
+import Home from "./home.tsx";
+import Layout from "./layout.tsx";
 
-let isServer = typeof document === "undefined";
+const isServer = typeof document === "undefined";
 
 export default [
   {
@@ -12,20 +12,21 @@ export default [
     path: "/",
     Component: Layout,
     // up to you where your loaders run (client or server), this one dynamically
-    // imports the correct one to avoid putting the server code in client
-    // bundles
+    // imports the correct one to avoid putting the server code in client bundles
     async loader(args: LoaderFunctionArgs) {
-      let mod = await (isServer
-        ? import("./layout.server.js")
-        : import("./layout.client.js"));
+      const mod =
+        await (isServer
+          ? import("./layout.server.tsx")
+          : import("./layout.client.tsx"));
       return mod.loader(args);
     },
     // same with the action, you'll probably want to abstract this kind of stuff
     // in a createRoute() kind of thing
     async action(args: ActionFunctionArgs) {
-      let mod = await (isServer
-        ? import("./layout.server.js")
-        : import("./layout.client.js"));
+      const mod =
+        await (isServer
+          ? import("./layout.server.tsx")
+          : import("./layout.client.tsx"));
       return mod.action(args);
     },
     children: [

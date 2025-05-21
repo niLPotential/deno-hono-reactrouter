@@ -1,8 +1,8 @@
 import { Form, Link, Outlet, useLoaderData } from "react-router";
-import { type loader } from "./layout.server.js";
+import { type loader } from "./layout.server.tsx";
 
 export default function Layout() {
-  let data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
   return (
     <html>
       <head>
@@ -17,7 +17,7 @@ export default function Layout() {
               Message: <i>{data.message}</i>
             </p>
             <fieldset>
-              <input name="message" placeholder="Enter a new message" />{" "}
+              <input name="message" placeholder="Enter a new message" />
               <button type="submit">Update</button>
             </fieldset>
           </Form>
